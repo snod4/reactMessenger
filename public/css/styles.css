@@ -1,0 +1,95 @@
+
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+
+
+header {
+  text-align: center;
+  height:15%;
+  background: #006999;
+  /* padding-top: 2rem;
+  padding-bottom: 2rem; */
+  font-family: 'Roboto Mono', monospace;
+  font-size: 40px;
+  color:white;
+   text-shadow: -2px 2px 4px #555555;
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.sidebar {
+  z-index: -1;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.messageHeader {
+  width:100%;
+}
+
+.messageHeader:hover{
+background-color: #f2f2f2;
+}
+
+
+.profilePic {
+  background-color: transparent;
+
+  text-align: center;
+  padding-top:5px;
+
+}
+
+.profilePic img{
+
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+
+}
+
+.messageInfo{
+  background-color: transparent;
+  padding-top:10px;
+  padding-right: 15px;
+}
+.messageInfo h3{
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom:5px;
+
+}
+
+.messageInfo p{
+
+  font-size: .8rem;
+}
+
+
+.chat-view{
+  z-index:-1;
+  position: fixed;
+  height: 100%;
+  margin:0;
+  background-color:#f2f2f2;
+}
+
+.messageInput {
+
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 5px;
+
+}
+
+.messages{
+  background-color: red;
+  height: 100%
+}
