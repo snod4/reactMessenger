@@ -1,95 +1,130 @@
-
-
 html, body {
-    margin: 0;
-    height: 100%;
-}
-
-
-
-header {
-  text-align: center;
-  height:15%;
-  background: #006999;
-  /* padding-top: 2rem;
-  padding-bottom: 2rem; */
-  font-family: 'Roboto Mono', monospace;
-  font-size: 40px;
-  color:white;
-   text-shadow: -2px 2px 4px #555555;
-     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-}
-
-.sidebar {
-  z-index: -1;
-  margin: 0;
-  padding: 0;
-  position: fixed;
+  width: 100%;
   height: 100%;
-  overflow: auto;
+}
+
+
+/* SIDEBAR STYLING */
+.sidebar {
+  z-index: 1;
+  margin: 0;
+  padding-left: 10px;
+  position: fixed;
+  width: 17%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .messageHeader {
-  width:100%;
+  width: 100%;
 }
 
-.messageHeader:hover{
-background-color: #f2f2f2;
+.messageHeader:hover {
+  background-color: #f2f2f2;
 }
-
 
 .profilePic {
   background-color: transparent;
-
   text-align: center;
-  padding-top:5px;
-
+  padding-top: 5px;
 }
 
-.profilePic img{
-
+.profilePic img {
   width: 70px;
   height: 70px;
   border-radius: 100%;
-
 }
 
-.messageInfo{
+.messageInfo {
   background-color: transparent;
-  padding-top:10px;
+  padding-top: 10px;
   padding-right: 15px;
 }
-.messageInfo h3{
+
+.messageInfo h3 {
   font-size: 1rem;
   font-weight: bold;
-  margin-bottom:5px;
-
+  margin-bottom: 5px;
 }
 
-.messageInfo p{
-
+.messageInfo p {
   font-size: .8rem;
 }
 
-
-.chat-view{
-  z-index:-1;
-  position: fixed;
+/* CHAT-VIEW STYLING */
+.messageWindow {
   height: 100%;
-  margin:0;
-  background-color:#f2f2f2;
+  width: 100%;
+  width: 83%;
+  margin-left: 17%;
 }
 
-.messageInput {
+.messages {
+  width: 100%;
+}
 
-  position: fixed;
-  bottom: 0;
-  margin-bottom: 5px;
+.name-plate {
+  text-align: center;
+  height: 10%;
+  box-shadow: 0 2px 2px #f2f2f2;
+}
+
+.message-text-section{
+  height: 740px;
+  overflow-y: auto;
+  z-index: -1;
 
 }
 
-.messages{
-  background-color: red;
-  height: 100%
+.messageBubbles-l {
+  width: 50%;
+}
+
+.messageBubbles-r {
+  width: 50%;
+  margin-left: 50%;
+}
+
+.wrapper-r {
+  text-align: right;
+    margin-bottom: auto;
+}
+
+.wrapper-l {
+  text-align: left;
+    margin-bottom: auto;
+}
+
+.wrapper-l div {
+
+  text-align: center;
+  color: black;
+  border-radius:15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background:  #d9d9d9;
+  padding-bottom:3px;
+  margin-right: auto;
+  display: inline-block;
+}
+
+.wrapper-r div {
+
+  text-align: center;
+  color: white;
+  border-radius:15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: blue;
+  padding-bottom:3px;
+  margin-left: auto;
+  display: inline-block;
+
+
+}
+
+.message-text{
+  margin-top:auto;
+  margin-bottom:auto;
 }
