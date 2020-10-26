@@ -1,18 +1,21 @@
 import React, {useState, useEffect} from "react";
 import Input from "./Input";
 import Message from "./Message";
+import WebSocket from "isomorphic-ws";
 
 
 function ChatView(props){
 
-
+const ws = props.ws;
 
   const [userMessages, setUserMessages] = useState({
     messages:[],
     name:"",
     _id:null
   });
+
   console.log(userMessages);
+
   useEffect(()=>{
     fetch(`/chat?id=${encodeURIComponent(props.id)}`)
      .then(response => response.json())
@@ -27,35 +30,45 @@ function ChatView(props){
     if(message === ""){
       return;
     }
+
     setUserMessages(prevMessages => {
       prevMessages.messages.push({
-        sent: true,
+        name: true,
         message: message
       });
+
+      ws.send(JSON.stringify({
+        recipient: props.name,
+        message: message
+      }));
+
+      return {...prevMessages};
+    });
+  }
+
       // POST request using fetch()
-    fetch('/chat', {
-
-        // Adding method type
-        method: "POST",
-
-        // Adding body or contents to send
-        body: JSON.stringify(prevMessages),
-
-        // Adding headers to the request
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    })
-
-    // Converting to JSON
-    .then(response => response.json())
-
-    // Displaying results to console
-    .then(json => console.log(json));
-
-          return {...prevMessages};
-  });
-}
+  //   fetch('/chat', {
+  //
+  //       // Adding method type
+  //       method: "POST",
+  //
+  //       // Adding body or contents to send
+  //       body: JSON.stringify(prevMessages),
+  //
+  //       // Adding headers to the request
+  //       headers: {
+  //           "Content-type": "application/json; charset=UTF-8"
+  //       }
+  //   })
+  //
+  //   // Converting to JSON
+  //   .then(response => response.json())
+  //
+  //   // Displaying results to console
+  //   .then(json => console.log(json));
+  //
+  //         return {...prevMessages};
+  // });
 
 
 

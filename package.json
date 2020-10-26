@@ -4,16 +4,23 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "express-session": "^1.17.1",
+    "isomorphic-ws": "^4.0.1",
     "mongoose": "^5.10.6",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^6.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "ws": "^7.3.1"
   },
   "scripts": {
-    "server": "node-env-run server --exec nodemon | pino-colada",
     "server": "node-env-run server --exec nodemon",
     "dev": "run-p server start",
     "start": "react-scripts start",

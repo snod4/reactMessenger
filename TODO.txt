@@ -1,0 +1,3 @@
+Check to see if name lookup works next
+Document code
+Display names better and add listener for selection
