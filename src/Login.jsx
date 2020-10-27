@@ -41,7 +41,7 @@ function Login(props){
       console.log("Login:");
       console.log(login);
       console.log("END");
-      props.handleLogin(login);
+      props.handleLogin(login.login, login.convos, login.id);
     });
   }
   function handleLogin(e){

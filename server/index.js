@@ -161,9 +161,14 @@ app.route('/chat').get((req, res) => {
   const id = req.query.id || null;
   res.setHeader('Content-Type', 'application/json');
   if (id !== null) {
-    // Chat.findById(id, function(err, item) {
-    //   res.send(JSON.stringify(item));
-    // });
+    Conversation.findById(id, (err, result) => {
+      if(err){
+        console.log(err);
+        return;
+      }
+      res.send(JSON.stringify(result));
+    })
+
   }
 
 });
@@ -255,7 +260,9 @@ app.route("/userLookup").post((req, res) => {
     console.log("All Users")
     console.log(docs);
   })
-  User.find({realName:name}, (err, docs) => {
+
+  const regex = new RegExp(name, "i");
+  User.find({realName:regex}, (err, docs) => {
     if(err){
       console.log(err);
       return;

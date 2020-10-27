@@ -5,7 +5,7 @@ import WebSocket from "isomorphic-ws";
 
 
 function ChatView(props){
-
+const convoId = props.id;
 const ws = props.ws;
 
   const [userMessages, setUserMessages] = useState({
@@ -17,10 +17,10 @@ const ws = props.ws;
   console.log(userMessages);
 
   useEffect(()=>{
-    fetch(`/chat?id=${encodeURIComponent(props.id)}`)
+    fetch(`/chat?id=${encodeURIComponent(convoId)}`)
      .then(response => response.json())
      .then(state => setUserMessages(state));
-  }, [props.id]);
+  }, [convoId]);
 
 
   console.log(userMessages);
@@ -77,7 +77,7 @@ return (
   <table className="messageWindow">
   <tbody>
             <tr className = "name-plate">
-                <td valign="top"><h1>Name</h1></td>
+                <td valign="top"><h1>{props.name}</h1></td>
             </tr>
             <tr>
               <td valign = "middle" style = {{height:"100%"}} >

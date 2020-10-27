@@ -23,7 +23,10 @@ function App(props){
     id: -1
   });
   // const [state, setState] = useState("Test");
-  const [activeConvo, setConvo] = useState(-1);
+  const [activeConvo, setConvo] = useState({
+    name:"",
+    id:-1
+  });
 
 
 
@@ -44,7 +47,8 @@ function App(props){
  // }
  if(!login.isLoggedIn){
    return (
-     <Login handleLogin = {(isLogIn, convoArr, id) => {setLogin(prev => {
+     <Login handleLogin = {(isLogIn, convoArr, id) => {
+       setLogin(prev => {
        return {
          isLoggedIn:isLogIn,
          convoArr:[...convoArr],
@@ -55,8 +59,8 @@ function App(props){
  }
  else{
 
-   function changeConvo(id){
-     setConvo(id);
+   function changeConvo(name, id){
+     setConvo({name:name, id: id});
    }
    /// FIGURE OUT HOW TO GET SIDEBAR INFO FROM SEVER AND FIGURE OUT ACTIVE CONVO ON INITIAL LOAD
    const ws = new WebSocket('ws://localhost:8080');
@@ -78,7 +82,7 @@ function App(props){
     <div style = {{height:"inherit"}}>
 
     <Sidebar selectConverstation = {changeConvo} convoArr = {login.convoArr}/>
-     <ChatView id = {"5f6f97355d41305c4880debd"} ws = {ws} />
+     <ChatView id = {activeConvo.id} ws = {ws} name = {activeConvo.name} />
      </div>
   );
 }

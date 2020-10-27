@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import AddIcon from '@material-ui/icons/Add';
 
 function UserLookup(props){
-  const [value, setInput] = useState("");
+  const [value, setValue] = useState("");
   const [displayItems, setDisplayItems] = useState({
     show:false,
     items:[]
@@ -10,10 +10,14 @@ function UserLookup(props){
 
   function updateInput(event){
     const currentVal = event.target.value;
-    setInput(currentVal);
+    setValue(currentVal);
    }
+
    useEffect(() => {
      if(value === ""){
+       setDisplayItems({
+         show:false,
+         items: []})
        return;
      }
      fetch("/userLookup", {
@@ -31,8 +35,9 @@ function UserLookup(props){
      })
      .then(response => response.json())
      .then(docs => {
+       console.log(docs);
        setDisplayItems({
-         show:displayItems.show,
+         show:true,
          items: docs});
      })}, [value]);
 
@@ -44,8 +49,17 @@ function UserLookup(props){
       <div className = "container">
         <div className = "row">
           <div className = "col-9">
-            <input onChange = {updateInput} onFocus = {() => setDisplayItems(prev => {return {show: true, items: prev.items}})} onBlur = {() => setDisplayItems( prev => {return {show: false, items: prev.items}})}type= "text" placeholder = "Name" value = {value}/ >
-            {displayItems.show ? <ul>{displayItems.items.map((item) =>{return <li>{item.name}</li>})}</ul>:null}
+            <input onChange = {updateInput} onFocus = {() => setDisplayItems(prev => {return {show: true, items: prev.items}})} onBlur = {() => setDisplayItems( prev => {return {show: true, items: prev.items}})}type= "text" placeholder = "Name" value = {value}/ >
+            {displayItems.show ? <div className = "search-results">{displayItems.items.map((item) =>{
+              return <div onClick = {() => {
+                setDisplayItems(prev => {return {...prev, show:false}})
+                props.addToConvoArr(prev => {prev.push({
+                  name: item.realName, id: item.id});
+                  return[...prev];})}}>
+                  {item.realName}
+                   </div>})}
+                  </div>
+                  :null}
           </div>
           <div className = "col-3">
             <button className = "btn btn-light" onClick = {handleClick}>{<AddIcon/>}</button>

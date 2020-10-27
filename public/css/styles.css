@@ -3,6 +3,9 @@ html, body {
   width: 100%;
   height: 100%;
 }
+
+
+
 /* Sign-In CSS */
 .body-sign-in
 {
@@ -44,6 +47,10 @@ html, body {
  border-top-left-radius: 0;
  border-top-right-radius: 0;
 }
+
+
+
+
 
 
 
@@ -116,6 +123,13 @@ html, body {
 .messageInfo p {
   font-size: .8rem;
 }
+
+.search-results div:hover{
+  background-color: grey;
+}
+
+
+
 
 /* CHAT-VIEW STYLING */
 .messageWindow {
