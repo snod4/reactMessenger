@@ -3,7 +3,7 @@ import React from "react";
 function MessageHeader(props){
 
   return (
-    <div className = "messageHeader" onClick = {() => props.selectConverstation(props.name,props.id)}>
+    <div className = "messageHeader" onClick = {() => props.selectConverstation(props.name,props.convoId, props.recipientId)}>
     <div className = "row">
         <div className ="profilePic col-3">
           <img src = {props.image} alt  = "profile picture"/>

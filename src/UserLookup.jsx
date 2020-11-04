@@ -50,11 +50,11 @@ function UserLookup(props){
         <div className = "row">
           <div className = "col-9">
             <input onChange = {updateInput} onFocus = {() => setDisplayItems(prev => {return {show: true, items: prev.items}})} onBlur = {() => setDisplayItems( prev => {return {show: true, items: prev.items}})}type= "text" placeholder = "Name" value = {value}/ >
-            {displayItems.show ? <div className = "search-results">{displayItems.items.map((item) =>{
+            {displayItems.show ? <div className = "search-results">{displayItems.items.map((item, key) =>{
               return <div onClick = {() => {
                 setDisplayItems(prev => {return {...prev, show:false}})
                 props.addToConvoArr(prev => {prev.push({
-                  name: item.realName, id: item.id});
+                  name: item.realName, convoId: null, recipientId: item._id});
                   return[...prev];})}}>
                   {item.realName}
                    </div>})}

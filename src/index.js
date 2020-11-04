@@ -9,7 +9,7 @@ import App from "./App";
 
 fetch("/home").then(response => response.json()).then(loginJson => {
   console.log(loginJson.login);
-  ReactDOM.render(<App login = {loginJson.login}/>, document.getElementById("root"));
+  ReactDOM.render(<App loginResults = {loginJson}/>, document.getElementById("root"));
   return;
 })
 

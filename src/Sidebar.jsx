@@ -10,12 +10,14 @@ console.log(convoArr);
   return (
     <div className = "sidebar">
         <UserLookup addToConvoArr = {setConvoArr} />
-        {convoArr.map(convo => {
+        {convoArr.map((convo, key) => {
             return <MessageHeader
-            id= {convo.convoId}
+            key = {key}
+            convoId= {convo.convoId}
+            recipientId = {convo.recipientId}
             selectConverstation = {props.selectConverstation}
-            image = {convo.image}
-            name = {convo.name}
+            image = {convo.img}
+            name = {convo.recipientName}
             content = "This is a test to see how long this can be before breaking"/>
 
         })}

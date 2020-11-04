@@ -1,6 +1,5 @@
 Document code
-Fix up how server loads chats once selected from SIDEBAR
-  1) Send user and recipient ids and names to database or convoID if old convo. If not
-      old, then make new conversation with sender and recipient and send new
-      convoID to both sender and recpient -- maybe thru websockets so it can
-      happen dynamically like a notification?
+Fix login issue where initial login doesn't work but cookie authentication does....
+Notify the recipient of new message and update messages and display it in sidebar
+Animate message bubbles
+Fix styling

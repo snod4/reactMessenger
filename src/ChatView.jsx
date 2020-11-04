@@ -5,25 +5,44 @@ import WebSocket from "isomorphic-ws";
 
 
 function ChatView(props){
-const convoId = props.id;
+
 const ws = props.ws;
 
-  const [userMessages, setUserMessages] = useState({
-    messages:[],
-    name:"",
-    _id:null
-  });
-
-  console.log(userMessages);
+  const [messages, setMessages] = useState([]);
+  console.log(`Typeof: ${typeof messages}`)
+  //console.log(messages.map(()=>{return "Test"}))
 
   useEffect(()=>{
-    fetch(`/chat?id=${encodeURIComponent(convoId)}`)
-     .then(response => response.json())
-     .then(state => setUserMessages(state));
-  }, [convoId]);
+    console.log("Got use useEffect")
+    if(props.recipientId === -1){
+      return;
+    }
+    console.log(`Got to chat fetch, recipeintId: ${props.recipientId}`)
+      fetch("/chat", {
+
+        // Adding method type
+        method: "POST",
+
+        // Adding body or contents to send
+        body: JSON.stringify({convoId: props.convoId, recipientId: props.recipientId, senderId: props.senderId, recipientName: props.name}),
+
+        // Adding headers to the request
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+      })
+      .then(response => response.json())
+      .then(responseJSON => {
+        console.log(`Data: ${responseJSON.data}, typeof: ${typeof responseJSON.data}`)
+        console.log(responseJSON.data)
+        setMessages(responseJSON.data)
+      });
+
+  }, [props.convoId, props.recipientId, props.senderId]);
 
 
-  console.log(userMessages);
+  console.log(`messages:`);
+  console.log(messages)
 
 
   function addUserMessage(message){
@@ -31,18 +50,18 @@ const ws = props.ws;
       return;
     }
 
-    setUserMessages(prevMessages => {
-      prevMessages.messages.push({
-        name: true,
+    setMessages(prevMessages => {
+      prevMessages.push({
+        id:props.senderId,
         message: message
       });
 
       ws.send(JSON.stringify({
-        recipient: props.name,
+        recipientId:props.recipientId,
         message: message
       }));
 
-      return {...prevMessages};
+      return [...prevMessages];
     });
   }
 
@@ -77,12 +96,12 @@ return (
   <table className="messageWindow">
   <tbody>
             <tr className = "name-plate">
-                <td valign="top"><h1>{props.name}</h1></td>
+                <td valign="top"><h1>{props.recipientId !== -1 ? props.name: "Pick someone"}</h1></td>
             </tr>
             <tr>
               <td valign = "middle" style = {{height:"100%"}} >
               <div className = "message-text-section">
-                {userMessages.messages.map((item, index) => <Message key = {index} message = {item.message} sent = {item.sent} />)}
+                {props.recipeintId !== -1 ? messages.map((item, index) => <Message key = {index} message = {item.message} sent = {item.id === props.senderId} />) : "Start Chatting Here"}
                 </div>
               </td>
             </tr>

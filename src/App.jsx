@@ -17,15 +17,12 @@ function App(props){
 // }, [props.id]);
 
 
-  const [login, setLogin] = useState({
-    isLoggedIn:props.login,
-    convoArr: [],
-    id: -1
-  });
+  const [login, setLogin] = useState({...props.loginResults});
   // const [state, setState] = useState("Test");
   const [activeConvo, setConvo] = useState({
     name:"",
-    id:-1
+    convoId:-1,
+    recipientId: -1
   });
 
 
@@ -47,26 +44,22 @@ function App(props){
  // }
  if(!login.isLoggedIn){
    return (
-     <Login handleLogin = {(isLogIn, convoArr, id) => {
-       setLogin(prev => {
-       return {
-         isLoggedIn:isLogIn,
-         convoArr:[...convoArr],
-         id:id
-       }
-     })}}/>
+     <Login handleLogin = {login => {
+       setLogin({...login});
+     }}/>
    );
  }
  else{
 
-   function changeConvo(name, id){
-     setConvo({name:name, id: id});
+   function changeConvo(name, convoId, recipientId){
+     setConvo({name:name, convoId: convoId, recipientId: recipientId});
    }
    /// FIGURE OUT HOW TO GET SIDEBAR INFO FROM SEVER AND FIGURE OUT ACTIVE CONVO ON INITIAL LOAD
    const ws = new WebSocket('ws://localhost:8080');
 
    ws.onopen = function open() {
    ws.send(login.id);
+   console.log(`loginId: ${login.id}`)
 
    ws.onmessage = msg => {
      console.log(JSON.parse(msg.data));
@@ -81,8 +74,8 @@ function App(props){
   return (
     <div style = {{height:"inherit"}}>
 
-    <Sidebar selectConverstation = {changeConvo} convoArr = {login.convoArr}/>
-     <ChatView id = {activeConvo.id} ws = {ws} name = {activeConvo.name} />
+    <Sidebar selectConverstation = {changeConvo} convoArr = {login.convos}/>
+     <ChatView convoId = {activeConvo.convoId} recipientId = {activeConvo.recipientId} senderId = {login.id} ws = {ws} name = {activeConvo.name} />
      </div>
   );
 }
