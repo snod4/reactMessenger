@@ -16,7 +16,7 @@ function MessageHeader(props){
         </div>
         <div className = "messageInfo col">
           <h3>{props.name}</h3>
-          <p>{props.content != null ? props.content.message.length >= 30 ? props.content.message.substr(0, 30) + " . . ." :props.content.message.substr(0, 30) : "Send this person a message"}</p>
+          <p>{props.content != null ? ((props.content.message != null) ? props.content.message.substr(0, 30) :"Sent a photo") : "Send this person a message"}</p>
         </div>
       </div>
       </div>

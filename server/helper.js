@@ -22,6 +22,17 @@ function UserConnection(id, connection) {
 }
 
 
+function OnGoingConvo(convoId, recipientId, name, img) {
+  this.recipientId = recipientId; //id of person a user is talking to
+  this.convoId = convoId;
+  this.recipientName = name;
+  this.recipientPhoto = img;
+  this.newMessage = false;
+  this.mostRecentMessage = null;
+}
+
+
+
 function isLogin(success, req, res) {
     if (success) {
       console.log("Sending back these conversations")
@@ -50,7 +61,7 @@ function isLogin(success, req, res) {
   message: message, String
   name: name of sender. Passed through this to sendToRecipient.
   */
-  function addToConveration(convoId, senderId, recipientId, message, name) {
+  function addToConveration(convoId, senderId, recipientId, message, images, name) {
     Conversation.findById(convoId, (err, convo) => {
       if (err) {
         console.log(err);
@@ -61,7 +72,8 @@ function isLogin(success, req, res) {
           $set: {
             convo: [...convo.convo, {
               id: senderId,
-              message: message
+              message: message,
+              images: images
             }]
           }
         }, (err) => {
@@ -69,7 +81,7 @@ function isLogin(success, req, res) {
             console.log(err);
             return;
           }
-           sendToRecipient(recipientId, senderId, message, name, convoId);
+           sendToRecipient(recipientId, senderId, message, images, name, convoId);
           console.log("Successfully added message");
         })
   
@@ -89,7 +101,7 @@ function isLogin(success, req, res) {
   reciever's client-side onGoingConversations has been updated to include sender's
   conversation
   */
-   function sendToRecipient(recipientId, senderId, message, name, convoId) {
+   function sendToRecipient(recipientId, senderId, message, images, name, convoId) {
     console.log("Got to sending to recipeint");
     const ws = idToConnection.get(recipientId);
     User.findOne({
@@ -137,6 +149,7 @@ function isLogin(success, req, res) {
         ws.send(JSON.stringify({
           senderId: senderId,
           message: message,
+          images: images,
           senderName: name,
           convoId: convoId
         }));
@@ -181,14 +194,7 @@ function isLogin(success, req, res) {
   }
 
 
-  function OnGoingConvo(convoId, recipientId, name, img) {
-    this.recipientId = recipientId; //id of person a user is talking to
-    this.convoId = convoId;
-    this.recipientName = name;
-    this.recipientPhoto = img;
-    this.newMessage = false;
-    this.mostRecentMessage = null;
-  }
+
   
 
   

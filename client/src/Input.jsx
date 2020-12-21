@@ -9,29 +9,57 @@ const fileTypes = [
 
 function Input(props){
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({
+    text: "",
+    images: []
+  });
   const [visibility, setVisibility] = useState("hidden");
+  console.log("here:" + message.text);
   function updateMessage(event){
+    console.log(message.text);
 
-    setMessage(event.target.value);
+    setMessage(prev => {
+      console.log("Update")
+      prev.text = prev.text + event.target.value;
+      console.log(prev)
+      return prev;
+      });
   }
 
   function handleClick(event){
+      console.log("Handle click");
+      const preview = document.querySelector(".preview");
+      while(preview.firstChild){
+        preview.removeChild(preview.firstChild);
+      }
+      const input = document.querySelector(".file_input");
+      input.value = "";
+      input.files = null;
 
-    props.sendMessage(message);
-    setMessage("");
+    
+    props.sendMessage(message.text, message.images);
+    setMessage({message: "", images: []});
   }
 
   function handleEnter(event){
     console.log("Got to enter")
     if(event.keyCode === 13){
-      props.sendMessage(message);
-      setMessage("");
+      handleClick(event);
     }
   }
 
  //handles image selection and its thumbnail
-  function handleImageSelection(e){
+  //thx stack overflow
+  const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    console.log("Converting");
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+
+  async function handleImageSelection(e){
+    console.log("handleImageSelection")
     const preview = document.querySelector(".preview");
     while(preview.firstChild){
       preview.removeChild(preview.firstChild);
@@ -41,9 +69,18 @@ function Input(props){
     preview.appendChild(list);
 
     const curFiles = e.target.files;
+    let imgArray = [];
+    console.log(`Length: ${curFiles.length}`);
+   
     for(const file of curFiles){
+      imgArray.push({
+        data:await toBase64(file)
+      });
       const listItem = document.createElement("li");
       if(fileTypes.includes(file.type)){
+
+        console.log("loop");
+
         const image = document.createElement("img");
         image.src = URL.createObjectURL(file);
         image.style.width = "60px";
@@ -53,7 +90,16 @@ function Input(props){
       }
     }
 
+    setMessage(prev => {
+      prev.images = imgArray;
+      return prev;
+    });
+
+    
+
   }
+
+  
   return (
 
     <div className ="messages">
@@ -72,13 +118,17 @@ function Input(props){
               const input = document.querySelector(".file_input");
               input.value = "";
               input.files = null;
+              setMessage(prev => {
+                prev.images = [];
+                return prev;
+              });
 
             }}
-            type="button" class="btn btn-danger">Cancel</button>
+            type="button" className="btn btn-danger">Cancel</button>
           </div>
           </span>
       </div>
-      <textarea type="text" rows = "1" className="form-control" aria-label="Amount (to the nearest dollar)" onChange = {updateMessage} value = {message} onKeyUp = {handleEnter}/>
+      <textarea type="text" rows = "1" className="form-control" aria-label="Amount (to the nearest dollar)" onChange = {updateMessage} value = {message.text} onKeyUp = {handleEnter}/>
       <div className="input-group-append">
         <span className="input-group-text" onClick = {handleClick} >Send</span>
       </div>

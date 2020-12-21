@@ -59,38 +59,40 @@ canPlay = true;
    console.log(messageJson)
    if(messageJson.senderId === props.recipientId){
      notifySound();
-     props.updateContent(messageJson.senderId, messageJson.message, messageJson.senderName, messageJson.convoId, NOT_NOTIFY);
-     setMessages([...messages, {id:messageJson.recipientId, message: messageJson.message}]);
+     props.updateContent(messageJson.senderId, ((messageJson.message != null && messageJson.message.length != 0) ? messageJson.message : "Sent a photo"), messageJson.senderName, messageJson.convoId, NOT_NOTIFY);
+     setMessages([...messages, {id:messageJson.recipientId, message: messageJson.message, images: messageJson.images}]);
    }
    else{
      notifySound();
      console.log("Hewre")
-     props.updateContent(messageJson.senderId, messageJson.message, messageJson.senderName, messageJson.convoId, NOTIFY);
+     props.updateContent(messageJson.senderId, ((messageJson.message != null && messageJson.message.length != 0) ? messageJson.message : "Sent a photo"), messageJson.senderName, messageJson.convoId, NOTIFY);
    }
  };
 
   console.log(`messages:`);
   console.log(messages)
-  console.log(ws)
+  console.log(ws) 
 
 
-  function addUserMessage(message){
-    if(message === ""){
+  function addUserMessage(message, images){
+    if(message === "" && images.length == 0){
       return;
     }
 
     setMessages(prevMessages => {
       prevMessages.push({
         id:props.senderId,
-        message: message
+        message: message,
+        images: images
       });
 
       ws.send(JSON.stringify({
         recipientId:props.recipientId,
-        message: message
+        message: message,
+        images: images
       }));
 
-      props.updateContent(props.recipientId, message, "", props.convoId, NOT_NOTIFY);
+      props.updateContent(props.recipientId, (message != null && message.length != 0 ? message : "Sent a photo") , "", props.convoId, NOT_NOTIFY);
 
 
       return [...prevMessages];
