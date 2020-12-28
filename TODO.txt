@@ -1,0 +1,7 @@
+1) Load actual images from server
+2) Display images
+3) Make add image button work
+3) Setup on Heroku -- db, server, etc
+4) Clean up UI 
+5) Add timestamps to messages? 
+6) Plz call it good

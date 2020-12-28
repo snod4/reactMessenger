@@ -9,21 +9,13 @@ const fileTypes = [
 
 function Input(props){
 
-  const [message, setMessage] = useState({
-    text: "",
-    images: []
-  });
+  const [text, setText] = useState("");
+  const [images, setImages] = useState([]);
   const [visibility, setVisibility] = useState("hidden");
-  console.log("here:" + message.text);
-  function updateMessage(event){
-    console.log(message.text);
 
-    setMessage(prev => {
-      console.log("Update")
-      prev.text = prev.text + event.target.value;
-      console.log(prev)
-      return prev;
-      });
+  
+  function updateMessage(event){
+    setText(event.target.value);
   }
 
   function handleClick(event){
@@ -37,8 +29,9 @@ function Input(props){
       input.files = null;
 
     
-    props.sendMessage(message.text, message.images);
-    setMessage({message: "", images: []});
+    props.sendMessage(text, images);
+    setText("");
+    setImages([]);
   }
 
   function handleEnter(event){
@@ -90,10 +83,7 @@ function Input(props){
       }
     }
 
-    setMessage(prev => {
-      prev.images = imgArray;
-      return prev;
-    });
+    setImages(imgArray);
 
     
 
@@ -118,17 +108,14 @@ function Input(props){
               const input = document.querySelector(".file_input");
               input.value = "";
               input.files = null;
-              setMessage(prev => {
-                prev.images = [];
-                return prev;
-              });
+              setImages([]);
 
             }}
             type="button" className="btn btn-danger">Cancel</button>
           </div>
-          </span>
+        </span>
       </div>
-      <textarea type="text" rows = "1" className="form-control" aria-label="Amount (to the nearest dollar)" onChange = {updateMessage} value = {message.text} onKeyUp = {handleEnter}/>
+      <textarea type="text" rows = "1" className="form-control" aria-label="Amount (to the nearest dollar)" onChange = {updateMessage} value = {text} onKeyUp = {handleEnter}></textarea>
       <div className="input-group-append">
         <span className="input-group-text" onClick = {handleClick} >Send</span>
       </div>
