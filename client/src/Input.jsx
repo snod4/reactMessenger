@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {toBase64} from './helper.js';
 const fileTypes = [
   "image/jpg",
   "image/gif",
@@ -43,13 +44,7 @@ function Input(props){
 
  //handles image selection and its thumbnail
   //thx stack overflow
-  const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    console.log("Converting");
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
+
 
   async function handleImageSelection(e){
     console.log("handleImageSelection")
@@ -66,9 +61,9 @@ function Input(props){
     console.log(`Length: ${curFiles.length}`);
    
     for(const file of curFiles){
-      imgArray.push({
-        data:await toBase64(file)
-      });
+      imgArray.push(
+        await toBase64(file)
+      );
       const listItem = document.createElement("li");
       if(fileTypes.includes(file.type)){
 

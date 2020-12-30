@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import Input from "./Input";
 import Message from "./Message";
 import WebSocket from "isomorphic-ws";
+import {fromBase64} from './helper.js';
+import ImagePopup from './ImagePopup';
 
 
 function ChatView(props){
@@ -11,12 +13,33 @@ const ws = props.ws;
 let canPlay = false;
 const notificationSound = new Audio("./notificationSound.mp3");
 notificationSound.addEventListener("canplaythrough", event => {
-/* the audio is now playable; play it if permissions allow */
+/* the audio is now playable; Play it if permissions allow */
 canPlay = true;
 });
   const [messages, setMessages] = useState([]);
-  console.log(`Typeof: ${typeof messages}`)
-  //console.log(messages.map(()=>{return "Test"}))
+  const [popup, setPopup] = useState({
+    visible:false,
+    image: null
+  })
+  function handlePopupClick(event){
+    event.stopPropagation();
+    const modal = document.querySelector(".popup-visible");
+    if(modal !== null && event.target !== modal){
+      console.log("Got to window click");
+      setPopup({visible: false, image:null});
+    }
+  }
+  useEffect(() => {
+    console.log(`popup useEffect`)
+    if(popup.visible){
+      console.log("Adding listner")
+      window.addEventListener("click", handlePopupClick)
+    }
+    else{
+      console.log("Removing event listener")
+      window.removeEventListener("click", handlePopupClick)
+    }
+  }, [popup, handlePopupClick])
 
   useEffect(()=>{
     console.log("Got use useEffect")
@@ -39,9 +62,20 @@ canPlay = true;
       })
       .then(response => response.json())
       .then(responseJSON => {
-        console.log(`Data: ${responseJSON.data}, typeof: ${typeof responseJSON.data}`)
-        console.log(responseJSON.data)
-        setMessages(responseJSON.data)
+        //console.log(`Data: ${responseJSON.data}, typeof: ${typeof responseJSON.data}`)
+        //console.log(responseJSON.data)
+        // let currentItem;
+        // for(let i = 0; i < responseJSON.data.length; i++){
+        //   currentItem = responseJSON.data[i];
+        //   if(currentItem.images.length != 0){
+        //     for(let g = 0; g < currentItem.images.length; g++){
+        //       console.log("JSON STRING: " + JSON.stringify(currentItem.images[g]))
+        //       currentItem.images[g] = fromBase64(currentItem.images[g]);
+        //       console.log("Chatview Image Src: " + currentItem.images[g]);
+        //     }
+        //   }
+        // }
+        setMessages(responseJSON.data);
       });
 
   }, [props.convoId, props.name, props.recipientId, props.senderId]);
@@ -56,6 +90,11 @@ canPlay = true;
    console.log("RECIEVED MESSAGE FROM SERVER")
    console.log(message)
    const messageJson = JSON.parse(message.data);
+
+  //  if(messageJson.images.length != 0){
+  //    messageJson.images = messageJson.images.map(fromBase64);
+  //  }
+
    console.log(messageJson)
    if(messageJson.senderId === props.recipientId){
      notifySound();
@@ -78,7 +117,7 @@ canPlay = true;
     if(message === "" && images.length == 0){
       return;
     }
-
+  
     setMessages(prevMessages => {
       prevMessages.push({
         id:props.senderId,
@@ -99,51 +138,35 @@ canPlay = true;
     });
   }
 
-      // POST request using fetch()
-  //   fetch('/chat', {
-  //
-  //       // Adding method type
-  //       method: "POST",
-  //
-  //       // Adding body or contents to send
-  //       body: JSON.stringify(prevMessages),
-  //
-  //       // Adding headers to the request
-  //       headers: {
-  //           "Content-type": "application/json; charset=UTF-8"
-  //       }
-  //   })
-  //
-  //   // Converting to JSON
-  //   .then(response => response.json())
-  //
-  //   // Displaying results to console
-  //   .then(json => console.log(json));
-  //
-  //         return {...prevMessages};
-  // });
+
 
 
 
 
 return (
-  <table className="messageWindow">
-  <tbody>
+  <div className = "messageWindow"> 
+  <ImagePopup visible = {popup.visible} image = {popup.image} />
+  <table className={"chatTable " + (popup.visible? "hide" : "")}>
+    <tbody>
             <tr className = "name-plate">
                 <td valign="top"><h1>{props.recipientId !== -1 ? props.name: "Pick someone"}</h1></td>
             </tr>
             <tr>
               <td valign = "middle" style = {{height:"100%"}} >
+
               <div className = "message-text-section">
-                {props.recipeintId !== -1 ? messages.map((item, index) => <Message key = {index} message = {item.message} sent = {item.id === props.senderId} />) : "Start Chatting Here"}
+                {props.recipeintId !== -1 ? messages.map((item, index) => <Message key = {index} showPopup = {setPopup} message = {item.message} images = {item.images} sent = {item.id === props.senderId} />) : "Start Chatting Here"}
                 </div>
               </td>
             </tr>
             <tr>
                 <td valign="bottom">{ props.recipientId !== -1 ? <Input sendMessage = {addUserMessage}/> : null}</td>
             </tr>
-            </tbody>
-        </table>
+        </tbody>
+    </table>
+
+    </div>
+        
 );
 }
 

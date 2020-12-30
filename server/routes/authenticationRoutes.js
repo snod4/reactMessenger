@@ -79,7 +79,7 @@ need to log in every time
 Uses passport to handle authentication
 
  */
-  router.post("/resgister", (req, res, next) => {
+  router.post("/register", (req, res, next) => {
     console.log("Posted to register route");
     User.register({
       username: req.body.user
