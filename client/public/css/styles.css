@@ -227,15 +227,13 @@ html, body {
 
 /* POP-UP STYLING */
 .popup-visible{
-  width:90%;
+  width:80%;
   display:block;
   position: relative;
-  background-color: #fefefe;
+  background-color: white;
   margin: auto;
   padding: 0;
-  border: 1px solid #888;
-  width: 80%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  /* border: 1px solid #888; */
   
 }
 .center {
@@ -260,6 +258,18 @@ html, body {
   display:none;
 }
 
-.popup-image{
-width:100%;
+.popup-wide{
+  width:100%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+
 }
+.popup-tall{
+  display: block;
+  margin-left: auto;
+  margin-right:auto;
+  height: 100vh;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+
+
+}
+
