@@ -12,7 +12,7 @@ function Input(props){
 
   const [text, setText] = useState("");
   const [images, setImages] = useState([]);
-  const [visibility, setVisibility] = useState("hidden");
+  const [visibility, setVisibility] = useState({display:"none"})
 
   
   function updateMessage(event){
@@ -90,9 +90,9 @@ function Input(props){
     <div className ="messages">
     <div className="input-group mb-3">
       <div className="input-group-prepend">
-        <span className="input-group-text" onClick = {() => {setVisibility('visible')}}>
-          {visibility === 'hidden' ? "+":""}
-          <div visibility = {visibility}>
+        <span className="input-group-text" >
+          {visibility.display === 'none' ? <div onClick = {() => {setVisibility({display:"block"})}}>+</div>:""}
+          <div style = {visibility}>
             <input className = "file_input" type = "file" multiple = "true" onChange = {handleImageSelection}/>
             <div  className = "preview"></div>
             <button onClick = {()=>{
@@ -104,6 +104,7 @@ function Input(props){
               input.value = "";
               input.files = null;
               setImages([]);
+              setVisibility({display:"none"});
 
             }}
             type="button" className="btn btn-danger">Cancel</button>
