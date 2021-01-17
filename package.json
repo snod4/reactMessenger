@@ -79,7 +79,7 @@
   },
   "proxy": "http://localhost:3001",
   "scripts": {
-    "dev": "cd ./client && node scripts/start.js",
+    "dev": "node ./scripts/start.js",
     "start": "(cd ./server && node server.js) & (node scripts/start.js)",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"

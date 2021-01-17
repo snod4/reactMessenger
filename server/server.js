@@ -80,9 +80,9 @@ wss.on('connection', function connection(ws) {
   ws.isAlive = true;
   ws.on('pong', heartbeat);
   let userConnection = new UserConnection(null, ws);
-  console.log("Connection Established");
+  //D console.log("Connection Established");
   ws.on('close', function closeConnection() {
-    console.log("Closing Connection")
+    //D console.log("Closing Connection")
   //  updateOnGoingConversations(openConnections.get(ws).id);
     const id = openConnections.get(ws).id;
     openConnections.delete(ws);
@@ -100,33 +100,33 @@ wss.on('connection', function connection(ws) {
 
       openConnections.set(ws, userConnection); //Hashmap
       idToConnection.set(userConnection.id, ws);
-      console.log(`Entries: ${openConnections.size} `)
+      //D console.log(`Entries: ${openConnections.size} `)
 
 
-      console.log(`Connection ${message} successfully added`);
+      //D console.log(`Connection ${message} successfully added`);
     } else {
       // openConnections.forEach((value, key) => {
-      //   console.log(`Key: ${key} and Value ${value} of openConnections`);
+      //   //D console.log(`Key: ${key} and Value ${value} of openConnections`);
       // }) //otherwise, messages should come in a JSON format -- change this
       const messageJson = JSON.parse(message);
-      console.log(`incoming message:`);
-      console.log(messageJson);
-      console.log(openConnections.get(this))
+      //D console.log(`incoming message:`);
+      //D console.log(messageJson);
+      //D console.log(openConnections.get(this))
 
       User.findOne({ //Add message to database and notify the recipient
         _id: openConnections.get(this).id
       }, (err, user) => {
         if (err) {
-          console.log(err);
+           console.log(err);
         } else {
-          console.log(`Sender: ${user}`)
+          //D console.log(`Sender: ${user}`)
           let convoArr = user.onGoingConversations;
           convoArr.forEach((item, i) => {
-            console.log(`messageId: ${messageJson.recipientId}, itemID: ${item.recipientId}`);
+            //D console.log(`messageId: ${messageJson.recipientId}, itemID: ${item.recipientId}`);
             if (messageJson.recipientId === item.recipientId) {
-              console.log("Found recipeint");
+              //D console.log("Found recipeint");
               addToConveration(item.convoId, user._id, messageJson.recipientId, messageJson.message, messageJson.images, user.realName);
-              console.log("Passed addConvo")
+              //D console.log("Passed addConvo")
               updateOnGoingConversations(user._id);
               updateOnGoingConversations(item.recipientId);
 
@@ -139,7 +139,7 @@ wss.on('connection', function connection(ws) {
     }
 
 
-    console.log('received: %s', message);
+    //D console.log('received: %s', message);
   });
 
 });
