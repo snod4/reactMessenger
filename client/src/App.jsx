@@ -20,11 +20,7 @@ function App(props){
       this.terminate();
     }, 30000 + 1000);
   }
-// useEffect(()=>{
-//   fetch(`/?id=${encodeURIComponent(id)}`)
-//    .then(response => response.json())
-//    .then(state => setUserMessages(state));
-// }, [props.id]);
+
 
 
   const [login, setLogin] = useState({...props.loginResults});
@@ -34,17 +30,11 @@ function App(props){
        tempWs.onopen = function open() {
        tempWs.send(login.id);
        console.log(`loginId: ${login.id}`);
-       // heartbeat();
-       // tempWs.on('ping', heartbeat);
-       // tempWs.on('close', function clear() {
-       //          clearTimeout(this.pingTimeout);
-       //        });
      };
      return tempWs;
     }
     return null;
   });
-  // const [state, setState] = useState("Test");
   const [activeConvo, setConvo] = useState({
     name:"",
     convoId:-1,
@@ -55,33 +45,15 @@ function App(props){
 
 
 
- //  function handleSubmit(event) {
- //   event.preventDefault();
- //   console.log(state);
- //   fetch(`/api/greeting?name=${encodeURIComponent(state)}`)
- //     .then(response => response.json())
- //     .then(state => setState(state.greeting));
- // }
- //
- //
- // function handleChange(event){
- //   const value = event.target.value;
- //   setState(value);
- // }
-
- console.log("Connecting WebSocket")
  if(ws == null && login.isLoggedIn){
+  console.log("Connecting WebSocket")
+
  const tempWs = new WebSocket('ws://localhost:8080');
   tempWs.onopen = function open() {
   tempWs.send(login.id);
   console.log(`loginId: ${login.id}`);
-  // heartbeat();
-  // tempWs.on('ping', heartbeat);
-  // tempWs.on('close', function clear() {
-  //          clearTimeout(this.pingTimeout);
-  //        });
-};
-setWebSocket(tempWs);
+  };
+  setWebSocket(tempWs);
 }
  if(!login.isLoggedIn){
    return (
@@ -127,12 +99,34 @@ setWebSocket(tempWs);
    /// FIGURE OUT HOW TO GET SIDEBAR INFO FROM SEVER AND FIGURE OUT ACTIVE CONVO ON INITIAL LOAD
 
 
+   function logout(){
+     console.log("Logging out")
+     fetch("/logout", {
 
+      // Adding method type
+      method: "POST",
+
+      // Adding body or contents to send
+      body: JSON.stringify({id:login.id}),
+
+      // Adding headers to the request
+      headers: {
+          "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+    .then(response => {
+      ws.close(1000);
+     setWebSocket(null);
+     setLogin({
+       isLoggedIn:false
+     });
+    });
+  }
 
   return (
     <div style = {{height:"inherit"}}>
 
-    <Sidebar selectConverstation = {changeConvo} convoArr = {login.convos}/>
+    <Sidebar selectConverstation = {changeConvo} convoArr = {login.convos} name = {login.name} logout = {logout}/>
      <ChatView convoId = {activeConvo.convoId} recipientId = {activeConvo.recipientId} senderId = {login.id} ws = {ws} name = {activeConvo.name} updateContent = {updateContent} />
      </div>
   );

@@ -39,6 +39,9 @@ router.post("/login", (req, res) => {
         console.log(err);
         return;
       }
+      else if(user==null){
+        return;
+      }
       user._doc.password = req.body.password;
       console.log(typeof user);
       console.log(`Modified User: ${user}`);
@@ -135,6 +138,11 @@ Uses passport to handle authentication
     });
   
   
+  })
+
+  router.post("/logout", (req, res) => {
+    req.logout();
+    res.send();
   })
 
   module.exports = router;

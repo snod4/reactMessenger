@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import MessageHeader from "./MessageHeader";
 import UserLookup from "./UserLookup";
+import Account from "./Account"
 
 function Sidebar(props){
 let [convoArr, setConvoArr] = useState(props.convoArr);
@@ -18,6 +19,7 @@ console.log(`ConvoArr`)
 console.log(convoArr)
   return (
     <div className = "sidebar">
+        <Account accountName = {props.name} logout = {props.logout}/>
         <UserLookup addToConvoArr = {addToConvoArr} />
         {convoArr.map((convo, key) => {
             return <MessageHeader

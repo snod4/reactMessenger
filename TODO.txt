@@ -1,6 +1,5 @@
 
 3) Make add image button work
-Add Logout button
 4) Setup on Heroku -- db, server, etc
 5) Clean up UI and animate stuff?
 6) Add timestamps to messages? Load only parts of convo at once for performance?

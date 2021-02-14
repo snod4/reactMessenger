@@ -82,7 +82,7 @@ wss.on('connection', function connection(ws) {
   let userConnection = new UserConnection(null, ws);
   //D console.log("Connection Established");
   ws.on('close', function closeConnection() {
-    //D console.log("Closing Connection")
+    console.log("Closing Connection")
   //  updateOnGoingConversations(openConnections.get(ws).id);
     const id = openConnections.get(ws).id;
     openConnections.delete(ws);

@@ -48,8 +48,15 @@ html, body {
  border-top-right-radius: 0;
 }
 
+/*Account Styling*/
 
-
+.account-div{
+  width:100%;
+  display: inline-block;
+}
+.account-name{
+  display:center;
+}
 
 
 

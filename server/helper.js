@@ -40,13 +40,14 @@ function isLogin(success, req, res) {
       console.log("Sending back user info")
       console.log(req.user)
       return res.send(JSON.stringify({
-        isLoggedIn: true, //Make this right
+        isLoggedIn: true,
         convos: req.user.onGoingConversations,
-        id: req.user._id
+        id: req.user._id,
+        name: req.user.realName
       }))
     } else {
       return res.send(JSON.stringify({
-        login: false,
+        isLoggedIn: false,
         convos: [],
         id: -1
       }))
