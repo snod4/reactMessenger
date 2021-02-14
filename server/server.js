@@ -42,7 +42,7 @@ app.use(apiRoutes);
 app.use(authenicationRoutes);
 
 //Set up express app to listen on port 3001
-app.listen(3001, () =>
+app.listen(process.env.PORT || 3001, () =>
   console.log('Express server is running on localhost:3001')
 );
 passport.use(User.createStrategy());
