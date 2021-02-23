@@ -1,0 +1,7 @@
+
+3) Make add image button work
+4) Setup on Heroku -- db, server, etc
+5) Clean up UI and animate stuff?
+6) Add timestamps to messages? Load only parts of convo at once for performance?
+7) Plz call it good
+8) Consider that image conversion done each message render could be slow with large amounts of images

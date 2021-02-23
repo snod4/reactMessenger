@@ -1,0 +1,15 @@
+version: '3'
+services:
+  deploy-messenger-db:
+    image: mongo:4.2.2
+    environment:
+      MONGO_INITDB_DATABASE: deploy-messenger-db
+    ports:
+      - 27017:27017
+  backend:
+    image: backend:latest
+    environment:
+      MONGODB_URI: mongodb://deploy-messenger-db:27017/deploy-messenger-db  
+    ports:
+      - 3001:3001
+      - 8080:8080

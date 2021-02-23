@@ -1,0 +1,331 @@
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* Sign-In CSS */
+.body-sign-in
+{
+ display: -ms-flexbox;
+ display: flex;
+ -ms-flex-align: center;
+ align-items: center;
+ padding-top: 40px;
+ padding-bottom: 40px;
+ background-color: #f5f5f5;
+}
+
+.form-signin {
+ width: 100%;
+ max-width: 330px;
+ padding: 15px;
+ margin: auto;
+}
+.form-signin .checkbox {
+ font-weight: 400;
+}
+.form-signin .form-control {
+ position: relative;
+ box-sizing: border-box;
+ height: auto;
+ padding: 10px;
+ font-size: 16px;
+}
+.form-signin .form-control:focus {
+ z-index: 2;
+}
+.form-signin input[type="email"] {
+ margin-bottom: -1px;
+ border-bottom-right-radius: 0;
+ border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+ margin-bottom: 10px;
+ border-top-left-radius: 0;
+ border-top-right-radius: 0;
+}
+
+/*Account Styling*/
+
+.account-div{
+  width:100%;
+  display: inline-block;
+}
+.account-name{
+  text-align: center;
+  display:center;
+}
+
+.account-options button{
+  float:right;
+  background-color: white;
+  color:black;
+}
+.account-options button:hover{
+  float:right;
+  background-color: #f2f2f2;
+  color:black;
+
+}
+.account-options button:focus{
+  background-color: #f2f2f2;
+  color:black;
+
+}
+
+
+
+
+/* SIDEBAR STYLING */
+.sidebar {
+  z-index: 1;
+  margin: 0;
+  position: fixed;
+  width: 17%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 2px 0 2px #f2f2f2;
+
+}
+
+.add-convo{
+  width:100%;
+  padding-right: 0;
+
+}
+.add-convo input{
+  border-radius: 4px;
+  width:100%;
+}
+.add-convo button{
+}
+.add-convo .col-9{
+  padding-top: 2px;
+  margin-right: 0px;
+  padding-right: 0;
+  padding-left: 0;
+}
+.add-convo .col-3{
+  padding-left: 0;
+  padding-right: 10px;
+}
+.message-header {
+  width: 100%;
+}
+
+.message-header:hover {
+  background-color: #f2f2f2;
+}
+.notify{
+  border-style: solid;
+}
+.profilePic {
+  background-color: transparent;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.profilePic img {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+}
+
+.messageInfo {
+  background-color: transparent;
+  padding-top: 10px;
+  padding-right: 15px;
+}
+
+.messageInfo h3 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.messageInfo p {
+  font-size: .8rem;
+}
+
+.message-header-options{
+padding:0;
+margin-left:-15px;
+}
+.message-header-options-btn{
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+ font-family: sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding:5px;
+  padding-top:1px;
+  padding-bottom:1px;
+  border-radius: 10px;
+  text-align: center;
+
+  background-color: white;
+  border-color: 0;
+  color:black;
+}
+
+.message-header-options-btn:hover{
+  background-color: #f2f2f2;
+}
+.search-results div:hover{
+  background-color: grey;
+}
+
+
+
+
+/* CHAT-VIEW STYLING */
+.messageWindow {
+  height: 100%;
+  width: 100%;
+  width: 83%;
+  margin-left: 17%;
+}
+
+.chatTable{
+  width:100%;
+  height: 100%;
+}
+
+
+
+.hide{
+  display:none;
+}
+
+.messages {
+  width: 100%;
+}
+
+.name-plate {
+  text-align: center;
+  height: 10%;
+  box-shadow: 0 2px 2px #f2f2f2;
+}
+
+.message-text-section{
+  height: 740px;
+  overflow-y: auto;
+  z-index: -1;
+
+}
+
+.messageBubbles-l {
+  width: 50%;
+}
+
+.messageBubbles-r {
+  width: 50%;
+  margin-left: 50%;
+}
+
+.wrapper-r {
+  text-align: right;
+    margin-bottom: auto;
+}
+
+.wrapper-l {
+  text-align: left;
+    margin-bottom: auto;
+}
+
+.wrapper-l div {
+
+  text-align: center;
+  color: black;
+  border-radius:15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background:  #d9d9d9;
+  padding-bottom:3px;
+  margin-right: auto;
+  display: inline-block;
+}
+
+.wrapper-r div {
+
+  text-align: center;
+  color: white;
+  border-radius:15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: blue;
+  padding-bottom:3px;
+  margin-left: auto;
+  display: inline-block;
+
+
+}
+.message-image{
+  width:100px;
+}
+.message-text{
+  margin-top:auto;
+  margin-bottom:auto;
+}
+
+
+
+/* POP-UP STYLING */
+.popup-visible{
+  width:80%;
+  display:block;
+  position: relative;
+  background-color: white;
+  margin: auto;
+  padding: 0;
+  /* border: 1px solid #888; */
+  
+}
+.center {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  /* animation-name: animatetop;
+  animation-duration: 0.4s */
+}
+
+/* Add Animation */
+@keyframes animatetop {
+  from {top: -300px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
+
+.popup-hidden{
+  width:90%;
+  display:none;
+}
+
+.popup-wide{
+  width:100%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+
+}
+.popup-tall{
+  display: block;
+  margin-left: auto;
+  margin-right:auto;
+  height: 100vh;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+
+
+}
+
