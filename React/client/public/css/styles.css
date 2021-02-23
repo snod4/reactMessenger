@@ -84,6 +84,7 @@ html, body {
   z-index: 1;
   margin: 0;
   position: fixed;
+  float:left;
   width: 17%;
   height: 100%;
   overflow-y: auto;
@@ -192,9 +193,9 @@ margin-left:-15px;
 /* CHAT-VIEW STYLING */
 .messageWindow {
   height: 100%;
-  width: 100%;
   width: 83%;
   margin-left: 17%;
+  float:right;
 }
 
 .chatTable{
@@ -235,18 +236,46 @@ margin-left:-15px;
 }
 
 .wrapper-r {
-  text-align: right;
-    margin-bottom: auto;
+  width:100%;
+  margin-bottom: auto;
+  display:inline-block;
+
 }
 
 .wrapper-l {
-  text-align: left;
-    margin-bottom: auto;
+  width:100%;
+  margin-bottom: auto;
+  display:inline-block;
+
+
 }
 
 .wrapper-l div {
+width: 100%;
+float: left;
+}
 
-  text-align: center;
+.wrapper-r div {
+  width: 100%;
+  float: right;
+}
+.message-image-l{
+  background:  #d9d9d9;
+
+  border-radius:15px;
+  padding:10px;
+  float: left;
+  width:100px;
+}
+.message-image-r{
+  border-radius:15px;
+  padding:10px;
+  float:right;
+  width:100px;
+  background: blue;
+
+}
+.message-text-l{
   color: black;
   border-radius:15px;
   padding-left: 10px;
@@ -254,29 +283,25 @@ margin-left:-15px;
   background:  #d9d9d9;
   padding-bottom:3px;
   margin-right: auto;
-  display: inline-block;
+  margin-top:auto;
+  margin-bottom:auto;
+  max-width: 30%;
+  float: left;
+  word-break: break-all;
 }
-
-.wrapper-r div {
-
-  text-align: center;
+.message-text-r{
   color: white;
   border-radius:15px;
   padding-left: 10px;
   padding-right: 10px;
   background: blue;
   padding-bottom:3px;
-  margin-left: auto;
-  display: inline-block;
-
-
-}
-.message-image{
-  width:100px;
-}
-.message-text{
+  float: right;
   margin-top:auto;
   margin-bottom:auto;
+  max-width: 30%;
+  word-break: break-all;
+
 }
 
 

@@ -85,7 +85,7 @@ Uses passport to handle authentication
   router.post("/register", (req, res, next) => {
     console.log("Posted to register route");
     User.register({
-      username: req.body.user
+      username: req.body.user, realName: req.body.name
     }, req.body.password, (err, user) => {
   
   
@@ -98,19 +98,10 @@ Uses passport to handle authentication
           sucess: false
         }));
   
-      } else {
-        User.updateOne({
-          _id: user._id
-        }, {
-          $set: {
-            realName: req.body.name
-          }
-        }, (err) => {
-          if (err) {
-            console.log(err);
-            return;
-          }
-        });
+      } 
+      else {
+
+
         console.log("Got to register login point");
   
         req.login(user, (err) => {
@@ -121,6 +112,7 @@ Uses passport to handle authentication
             authenticate(req.body.user, req.body.password, (err, user, info) => {
               console.log(err);
               console.log(user);
+              console.log(req.user)
               console.log(info);
               if (user) {
                 console.log("Successfully Reg");
@@ -132,7 +124,6 @@ Uses passport to handle authentication
             })
           }
         })
-  
       }
   
     });

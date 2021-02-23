@@ -4,12 +4,17 @@ import ImagePopup from './ImagePopup';
 
 function Message(props){
   let wrapper = "";
+  let message_css = ""
+  let image_css = ""
   if(props.sent){
     wrapper = "wrapper-r";
-
+    message_css = "message-text-r"
+    image_css = "message-image-r"
   }
   else{
     wrapper = "wrapper-l";
+    message_css = "message-text-l"
+    image_css = "message-image-l"
   }
  
   return (
@@ -21,10 +26,10 @@ function Message(props){
         return <img onClick = {(e) => {
           console.log("Clicking Image")
           e.stopPropagation();
-          props.showPopup({visible:true, image:image})}} className = "message-image" src = {image.src} />
+          props.showPopup({visible:true, image:image})}} className = {image_css} src = {image.src} />
       }) : null}
 
-      { props.message.length != 0 ? <p className = "message-text">{props.message}</p> : null}
+      { props.message.length != 0 ? <p className = {message_css}>{props.message}</p> : null}
       
     </div>
     </div>

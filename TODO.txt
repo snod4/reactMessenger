@@ -1,0 +1,2 @@
+Fix bug where once an ongoing conversation is removed and readded, the server treats the readded one as a new converstaion. Should get the history.
+Fix styling issue when multiple images are sent

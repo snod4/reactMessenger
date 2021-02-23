@@ -33,7 +33,7 @@ function App(props){
         HOST = window.location.origin.replace(/^https/, 'wss');
       }
       else if(window.location.origin.includes("localhost")){
-        HOST = window.location.origin.replace(/^http/, 'ws');
+        HOST = 'ws://localhost:3001';
       }
       
       console.log("WS URI: " + HOST);
@@ -63,7 +63,7 @@ function App(props){
     HOST = window.location.origin.replace(/^https/, 'wss');
   }
   else if(window.location.origin.includes("localhost")){
-    HOST = window.location.origin.replace(/^http/, 'ws');
+    HOST = 'ws://localhost:3001';
   }
   
   console.log("WS URI: " + HOST);
